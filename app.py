@@ -37,13 +37,15 @@ st.caption("Prototype • Charges verified vs Zerodha calculator • Tax rates p
 with st.sidebar:
     st.header("Configure")
     basket_choice = st.selectbox("Preset basket",
-    ["IT (Ashwar's demo)", "Banks", "Mixed (sector-diverse)", "Custom"], index=0)
+    ["IT (Ashwar's demo)", "Banks", "Mixed (sector-diverse)","High-volatility (8 stocks)", "Custom"], index=0)
     if basket_choice == "IT (Ashwar's demo)":
         symbols_input = ["TCS","INFY","WIPRO","TECHM","HCLTECH"]
     elif basket_choice == "Banks":
         symbols_input = ["HDFCBANK","ICICIBANK","SBIN","AXISBANK","KOTAKBANK"]
     elif basket_choice == "Mixed (sector-diverse)":
         symbols_input = ["RELIANCE", "HDFCBANK", "TCS", "ITC", "MARUTI", "SUNPHARMA", "LT", "BHARTIARTL"]
+    elif basket_choice == "High-volatility (8 stocks)":
+        symbols_input = ["ADANIENT", "JSWSTEEL", "HINDALCO", "BAJFINANCE", "MARUTI", "BHARTIARTL", "SUNPHARMA"]
     else:
         symbols_input = st.text_area("NSE symbols (no .NS)", "TCS, INFY, WIPRO").replace(" ","").split(",")
 
