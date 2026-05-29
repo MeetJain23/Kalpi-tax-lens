@@ -2,6 +2,8 @@
 
 A tax-aware backtesting overlay for Indian retail equity portfolios.
 
+
+
 Computes three CAGRs side-by-side:
 
 1. **Gross** — what most retail backtesters report
@@ -10,7 +12,24 @@ Computes three CAGRs side-by-side:
 
 The delta between gross and net-of-everything is the difference between **what marketing shows** and **what the user keeps**.
 
----
+--
+
+## Sample results
+
+Run on real NSE data via yfinance (Sep 2020 - May 2026):
+
+| Strategy | Gross CAGR | After-Tax CAGR | Total Drag |
+|---|---|---|---|
+| IT basket, quarterly rebal | 19.71% | 19.47% | -0.24 pp |
+| Mixed 8-sector, quarterly | 17.52% | 17.16% | -0.36 pp |
+| High-vol 7-stock, monthly | 33.13% | 31.74% | **-1.38 pp** |
+
+The high-vol example translates to ₹2.89 lakh of drag on a ₹10 lakh
+starting portfolio over 5.5 years - of which ₹2.65 lakh is tax.
+
+Variance from 0.24pp to 1.38pp depending on strategy is the point:
+retail users currently see a single CAGR number that hides
+substantial variation in real after-tax outcomes.
 
 ## Why this exists
 

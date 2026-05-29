@@ -36,11 +36,14 @@ st.caption("Prototype • Charges verified vs Zerodha calculator • Tax rates p
 
 with st.sidebar:
     st.header("Configure")
-    basket_choice = st.selectbox("Preset basket", ["IT (Ashwar's demo)", "Banks", "Custom"], index=0)
+    basket_choice = st.selectbox("Preset basket",
+    ["IT (Ashwar's demo)", "Banks", "Mixed (sector-diverse)", "Custom"], index=0)
     if basket_choice == "IT (Ashwar's demo)":
-        symbols_input = ["TCS","INFY","WIPRO","TECHM","LTIM","HCLTECH"]
+        symbols_input = ["TCS","INFY","WIPRO","TECHM","HCLTECH"]
     elif basket_choice == "Banks":
         symbols_input = ["HDFCBANK","ICICIBANK","SBIN","AXISBANK","KOTAKBANK"]
+    elif basket_choice == "Mixed (sector-diverse)":
+        symbols_input = ["RELIANCE", "HDFCBANK", "TCS", "ITC", "MARUTI", "SUNPHARMA", "LT", "BHARTIARTL"]
     else:
         symbols_input = st.text_area("NSE symbols (no .NS)", "TCS, INFY, WIPRO").replace(" ","").split(",")
 
@@ -91,6 +94,10 @@ if len(prices) == 0:
 
 st.success(f"Loaded {len(prices)} trading days, {len(prices.columns)} symbols "
            f"({prices.index[0].date()} to {prices.index[-1].date()})")
+
+missing = set(symbols_input) - set(prices.columns)
+if missing:
+    st.warning(f"Skipped (no data for full period): {', '.join(missing)}")
 
 weights = {s: 1/len(prices.columns) for s in prices.columns}
 with st.spinner("Running tax-aware backtest..."):
