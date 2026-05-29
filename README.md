@@ -31,18 +31,24 @@ Variance from 0.24pp to 1.38pp depending on strategy is the point:
 retail users currently see a single CAGR number that hides
 substantial variation in real after-tax outcomes.
 
+![Kalpi Tax Lens demo](demo1.png)
+
 ## Why this exists
 
-Most Indian retail strategy platforms report gross backtest returns. For a buy-and-hold portfolio that gap doesn't matter much. For anything with quarterly or monthly rebalancing — the kind of strategy these platforms are built for — the gap is typically **3-5 percentage points of CAGR**, sometimes more.
+Most Indian retail strategy platforms report gross backtest returns.
+For buy-and-hold the gap is small. For active rebalancing strategies,
+the gap widens — in our testing, from 0.24pp (low-turnover quarterly)
+to 1.38pp+ (high-turnover monthly on volatile baskets), translating
+to ₹2.89L of drag on a ₹10L portfolio.
 
 Post-Union Budget 2024 the gap got worse:
+
 - STCG: 15% → **20%**
 - LTCG: 10% → **12.5%**
 - LTCG exemption: ₹1L → ₹1.25L
 
-Any backtester using pre-2024 tax rates is now showing wrong numbers. Most don't apply tax at all.
-
----
+Any backtester using pre-2024 tax rates is now showing wrong numbers.
+Most don't apply tax at all.
 
 ## Quickstart
 
@@ -133,4 +139,9 @@ Charge rates per Zerodha (Nov 2024). Tax rates per Finance (No. 2) Act 2024, Sec
 
 MIT. Use it, fork it, ship it.
 
-Built as a prototype contribution proposal to [Kalpi](https://kalpi.ai).
+---
+
+Built by **Meet Siroya** as a prototype contribution proposal to [Kalpi](https://kalpi.ai).
+
+- LinkedIn: [linkedin.com/in/meet-siroya]
+- Email: [meetsiroyaa@gmail.com]
