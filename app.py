@@ -56,7 +56,7 @@ with st.sidebar:
     brokerage = st.number_input("Brokerage per order (Rs)", value=20.0, min_value=0.0, step=5.0,
                                 help="Zerodha = Rs 0 for delivery. Default Rs 20.")
     st.markdown("---")
-    run = st.button("Run Tax Lens", type="primary", use_container_width=True)
+    run = st.button("Run Tax Lens", type="primary", width='stretch')
 
 @st.cache_data(show_spinner=False)
 def fetch_prices(symbols, start, end):
@@ -136,7 +136,7 @@ fig.add_trace(go.Scatter(x=res["net_tax_curve"].index, y=res["net_tax_curve"].va
 fig.update_layout(template="plotly_dark", paper_bgcolor="#0a0a0a", plot_bgcolor="#0a0a0a",
                   height=480, margin=dict(t=20,b=40,l=40,r=20),
                   legend=dict(orientation="h", y=1.05), yaxis_title="Portfolio value (Rs)")
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 
 st.markdown("### Side-by-side metrics")
 d = mdf[["cagr","vol","sharpe","max_drawdown","total_return"]].copy()
@@ -144,7 +144,7 @@ d.columns = ["CAGR","Volatility","Sharpe","Max DD","Total Return"]
 for col in ["CAGR","Volatility","Max DD","Total Return"]:
     d[col] = (d[col]*100).round(2).astype(str) + "%"
 d["Sharpe"] = d["Sharpe"].round(3)
-st.dataframe(d, use_container_width=True)
+st.dataframe(d, width='stretch')
 
 if res["tax_log"]:
     st.markdown("### FY-end tax events")
@@ -152,7 +152,7 @@ if res["tax_log"]:
     tdf.columns = ["FY","Realized STCG","Realized LTCG","STCG Tax (20%)","LTCG Tax (12.5%, post Rs 1.25L)","Total Tax","Paid on"]
     for col in ["Realized STCG","Realized LTCG","STCG Tax (20%)","LTCG Tax (12.5%, post Rs 1.25L)","Total Tax"]:
         tdf[col] = tdf[col].apply(lambda x: f"Rs {x:,.0f}")
-    st.dataframe(tdf, use_container_width=True, hide_index=True)
+    st.dataframe(tdf, width='stretch', hide_index=True)
 
 with st.expander("Methodology"):
     st.markdown("""
