@@ -39,7 +39,7 @@ with st.sidebar:
     basket_choice = st.selectbox("Preset basket",
     ["IT (Ashwar's demo)", "Banks", "Mixed (sector-diverse)","High-volatility (8 stocks)", "Custom"], index=0)
     if basket_choice == "IT (Ashwar's demo)":
-        symbols_input = ["TCS","INFY","WIPRO","TECHM","HCLTECH"]
+        symbols_input = ["TCS","INFY","WIPRO","HCLTECH"]
     elif basket_choice == "Banks":
         symbols_input = ["HDFCBANK","ICICIBANK","SBIN","AXISBANK","KOTAKBANK"]
     elif basket_choice == "Mixed (sector-diverse)":
