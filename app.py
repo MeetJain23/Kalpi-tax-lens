@@ -63,14 +63,34 @@ with st.sidebar:
     st.markdown("---")
     run = st.button("Run Tax Lens", type="primary", width='stretch')
 
+import os
+
 @st.cache_data(show_spinner=False)
 def fetch_prices(symbols, start, end):
+    start = pd.Timestamp(start)
+    end = pd.Timestamp(end)
+    
+    # Try the cached CSV first (fast, reliable, works on Streamlit Cloud)
+    cache_path = "cached_prices.csv"
+    if os.path.exists(cache_path):
+        cached = pd.read_csv(cache_path, index_col=0, parse_dates=True)
+        available_in_cache = [s for s in symbols if s in cached.columns]
+        
+        if len(available_in_cache) == len(symbols):
+            # All requested symbols are cached — use the cache
+            prices = cached[available_in_cache]
+            prices = prices.loc[(prices.index >= start) & (prices.index <= end)]
+            prices = prices.dropna()
+            return prices
+    
+    # Fallback: yfinance (for custom symbols not in cache)
     tickers = [f"{s}.NS" for s in symbols]
     data = yf.download(tickers, start=start, end=end, auto_adjust=True, progress=False)
     prices = data["Close"].copy() if isinstance(data.columns, pd.MultiIndex) else data[["Close"]].copy()
     rev = {f"{s}.NS": s for s in symbols}
     prices.columns = [rev.get(c, c) for c in prices.columns]
-    return prices[symbols].dropna()
+    available = [s for s in symbols if s in prices.columns]
+    return prices[available].dropna()
 
 if not run:
     st.info("Configure the portfolio in the sidebar and hit **Run Tax Lens**.")
@@ -179,4 +199,6 @@ with st.expander("Methodology"):
 
     **Out of scope for v0:** Tax-loss harvesting, set-off/carry-forward, dividend tax, per-broker profiles.
     """)
-st.caption("Kalpi Tax Lens prototype | Built for retail backtest launch")
+st.caption("Prototype • Charges verified vs Zerodha calculator • "
+           "Tax rates per Union Budget 2024 • Preset baskets use cached NSE data; "
+           "custom baskets use yfinance live")
