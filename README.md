@@ -1,4 +1,6 @@
 # Kalpi Tax Lens 🇮🇳
+**Live demo:** [kalpi-tax-lens.streamlit.app](https://kalpi-tax-lens.streamlit.app/)
+
 
 A tax-aware backtesting overlay for Indian retail equity portfolios.
 
@@ -42,7 +44,6 @@ to 1.38pp+ (high-turnover monthly on volatile baskets), translating
 to ₹2.89L of drag on a ₹10L portfolio.
 
 Post-Union Budget 2024 the gap got worse:
-
 - STCG: 15% → **20%**
 - LTCG: 10% → **12.5%**
 - LTCG exemption: ₹1L → ₹1.25L
